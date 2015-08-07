@@ -3,9 +3,14 @@ package com.autentia.tutoriales.annotations.classes;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.autentia.tutoriales.annotations.annotations.MultipleInvocation;
 
 public class Operator {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Operator.class);
 
     public void operate(AutomaticWeapon weapon) {
         final String className = weapon.getClass().getName();
@@ -15,12 +20,12 @@ public class Operator {
                 invokeMethod(method, weapon);
             }
         } catch (final Exception e) {
-            System.err.println("Hubo un error:" + e.getMessage());
+            LOG.error("ERROR: {}", e);
         }
     }
 
     private void invokeMethod(Method method, AutomaticWeapon weapon)
-            throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+            throws IllegalAccessException, InvocationTargetException {
 
         final MultipleInvocation multipleInvocation = method.getAnnotation(MultipleInvocation.class);
 
