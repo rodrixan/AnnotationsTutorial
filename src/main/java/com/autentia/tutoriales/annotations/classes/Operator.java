@@ -2,15 +2,13 @@ package com.autentia.tutoriales.annotations.classes;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Logger;
 
 import com.autentia.tutoriales.annotations.annotations.MultipleInvocation;
 
 public class Operator {
 
-    private static final Logger LOG = LoggerFactory.getLogger(Operator.class);
+    private static final Logger LOG = Logger.getLogger(Operator.class.getName());
 
     public void operate(AutomaticWeapon weapon) {
         final String className = weapon.getClass().getName();
@@ -20,7 +18,7 @@ public class Operator {
                 invokeMethod(method, weapon);
             }
         } catch (final Exception e) {
-            LOG.error("ERROR: {}", e);
+            LOG.severe("ERROR: " + e);
         }
     }
 
